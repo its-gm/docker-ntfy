@@ -1,0 +1,13 @@
+base-url: "https://ntfy.deinedomain.de"
+#listen-http: ":80"
+#listen-https: ":443"
+cache-file: "/var/cache/ntfy/cache.db"
+behind-proxy: true
+attachment-cache-dir: "/var/cache/ntfy/attachments"
+attachment-total-size-limit: "1G"
+attachment-file-size-limit: "15M"
+attachment-expiry-duration: "3h"
+visitor-attachment-total-size-limit: "10M"
+visitor-attachment-daily-bandwidth-limit: "20M"
+auth-file: "/var/lib/ntfy/user.db"
+auth-default-access: "deny-all"
