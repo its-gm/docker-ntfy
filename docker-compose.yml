@@ -1,0 +1,28 @@
+version: "2.3"
+
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command:
+      - serve
+    environment:
+      - TZ=Europe/Berlin    # optional: set desired timezone
+    user: 1000:1000 # optional: replace with your own user/group or uid/gid
+    labels:
+      traefik.docker.network: proxy
+      traefik.enable: "true"
+      traefik.http.routers.ntfy-secure.entrypoints: websecure
+      traefik.http.routers.ntfy-secure.middlewares: default@file
+      traefik.http.routers.ntfy-secure.rule: Host(`ntfy.deinedomain.de`)
+      traefik.http.routers.ntfy-secure.service: ntfy
+      traefik.http.routers.ntfy-secure.tls: "true"
+      traefik.http.routers.ntfy-secure.tls.certresolver: http_resolver
+      traefik.http.routers.ntfy.entrypoints: web
+      traefik.http.routers.ntfy.rule: Host(`ntfy.deinedomain.de`)
+      traefik.http.services.ntfy.loadbalancer.server.port: "80"
+    networks:
+      default: null
+      proxy: null
+    restart: always
+    volumes:
